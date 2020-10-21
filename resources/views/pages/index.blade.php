@@ -10,7 +10,13 @@
         @else
             <b-list-group>
                 @foreach ($boards as $board)
-                    <b-list-group-item>/{{$board->slug}}/ - {{$board->name}}</b-list-group-item>
+                    <b-list-group-item>
+                        <div class="d-flex w-100 justify-content-between">
+                            <h5 class="mb-1">/{{$board->slug}}/ - {{$board->name}}</h5>
+                        </div>
+
+                        <small>{{$board->description}}</small>
+                    </b-list-group-item>
                 @endforeach
             </b-list-group>
         @endif
