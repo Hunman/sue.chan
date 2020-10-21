@@ -27,4 +27,11 @@ Route::get('/', function () {
     // Then we return the index page, with boards fed to it
     return view('pages/index')
         ->with(compact('boards'));
-});
+})->name('index');
+
+Route::get('/{slug}/', function ($slug) {
+    $board = \App\Models\Board::where('slug', $slug)->firstOrFail();
+
+    return view('pages/board')
+        ->with(compact('board'));
+})->name('board');
