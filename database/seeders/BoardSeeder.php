@@ -34,5 +34,8 @@ class BoardSeeder extends Seeder
             'description' => 'Anything goes, just don\'t get the alphabet boys on my ass with cheese pizza',
             'slug' => 'sue',
         ]);
+
+        // Clear the cached list of boards
+        Cache::forget('boards');
     }
 }

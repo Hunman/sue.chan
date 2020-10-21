@@ -15,7 +15,14 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     // Fetch the list of boards
-    $boards = \App\Models\Board::all();
+    // Try to load from cache if we can, so we can lower the number of database calls
+    if (Cache::missing('boards')) {
+        // If not in the cache, we put it in the cache
+        Cache::put('boards', \App\Models\Board::all(), now()->addHours(8));
+    }
+
+    // We load the boards from the cache
+    $boards = Cache::get('boards');
 
     // Then we return the index page, with boards fed to it
     return view('pages/index')
