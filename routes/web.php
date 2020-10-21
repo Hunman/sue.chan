@@ -14,5 +14,10 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('pages/index');
+    // Fetch the list of boards
+    $boards = \App\Models\Board::all();
+
+    // Then we return the index page, with boards fed to it
+    return view('pages/index')
+        ->with(compact('boards'));
 });

@@ -20,6 +20,19 @@
     </head>
     <body>
         <div id="app">
+            {{--
+                You can see that I'm using a <b-navbar> and such tags, which are not standard HTML tags
+                The reason for this is that this is BootstrapVue's doing.
+
+                The original Bootstrap version uses jQuery, which is kindof a becoming obsolete.
+                The quick summary of the whys:
+                    Old browsers all worked different, so jQuery was born as a sollution to make it easy to write
+                    code that behaved the same way in every browser. Browser creators caught on,
+                    making browsers behave more and more similar and standard following,
+                    thus the need for jQuery is diminishing, the drawbacks of jQuery start to outweight the good parts
+
+                So by using BootstrapVue, I can use bootstrap with all it's functionality, but without having to use jQuery
+            --}}
             <b-navbar toggleable="md" type="dark" variant="dark">
                 <b-navbar-brand href="/">{{config('app.name')}}</b-navbar-brand>
             </b-navbar>
