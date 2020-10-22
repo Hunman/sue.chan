@@ -16,13 +16,13 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     // Fetch the list of boards
     // Try to load from cache if we can, so we can lower the number of database calls
-    if (Cache::missing('boards')) {
+    if (Cache::tags('boards')->missing('boards')) {
         // If not in the cache, we put it in the cache
-        Cache::put('boards', \App\Models\Board::all(), now()->addHours(8));
+        Cache::tags('boards')->put('boards', \App\Models\Board::all(), now()->addHours(8));
     }
 
     // We load the boards from the cache
-    $boards = Cache::get('boards');
+    $boards = Cache::tags('boards')->get('boards');
 
     // Then we return the index page, with boards fed to it
     return view('pages/index')
@@ -30,7 +30,15 @@ Route::get('/', function () {
 })->name('index');
 
 Route::get('/{slug}/', function ($slug) {
-    $board = \App\Models\Board::where('slug', $slug)->firstOrFail();
+    $cacheKey = 'board-' . $slug;
+    if (Cache::tags('boards')->missing($cacheKey)) {
+        Cache::tags('boards')->put(
+            $cacheKey,
+            \App\Models\Board::where('slug', $slug)->firstOrFail(),
+            now()->addHours(8)
+        );
+    }
+    $board = Cache::tags('boards')->get($cacheKey);
 
     return view('pages/board')
         ->with(compact('board'));
