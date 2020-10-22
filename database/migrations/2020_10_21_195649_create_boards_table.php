@@ -16,7 +16,7 @@ class CreateBoardsTable extends Migration
         Schema::create('boards', function (Blueprint $table) {
             $table->id();
             $table->string('name')->comment('The name of the board');
-            $table->string('slug')->comment('The thing that appears in the URL (like /v/)');
+            $table->string('slug')->unique()->comment('The thing that appears in the URL (like /v/)');
             $table->timestamps();
         });
     }

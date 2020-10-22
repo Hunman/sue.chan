@@ -36,6 +36,6 @@ class BoardSeeder extends Seeder
         ]);
 
         // Clear the cached list of boards
-        Cache::forget('boards');
+        \Cache::forget('boards');
     }
 }
